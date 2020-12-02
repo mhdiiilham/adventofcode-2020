@@ -51,3 +51,26 @@ func reportRepair(input []int) int {
 
 	return result
 }
+
+func reportRepair3Sum(input []int) int {
+	var result int
+	sort.Ints(input)
+
+	for i := 0; i < len(input); i++ {
+		for j := 0; j < len(input); j++ {
+			for k := 0; k < len(input); k++ {
+
+				if input[i]+input[j]+input[k] > 2020 {
+					break
+				}
+
+				if input[i]+input[j]+input[k] == 2020 {
+					return input[i] * input[j] * input[k]
+				}
+
+			}
+		}
+	}
+
+	return result
+}

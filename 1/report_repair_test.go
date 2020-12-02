@@ -28,3 +28,10 @@ func TestNotFound(t *testing.T) {
 	reportResult := reportRepair(input)
 	assert.Equal(t, 0, reportResult, "Report Repair should be equal to 0 if none sum is equal to 2020")
 }
+
+func TestSuccessGetResult3Sum(t *testing.T) {
+	input := readInputFile("input.txt")
+	reportResult := reportRepair3Sum(*input)
+
+	assert.Equal(t, 262738554, reportResult, "Report Repair should be equal to 262738554")
+}
