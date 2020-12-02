@@ -7,13 +7,13 @@ import (
 	"strings"
 )
 
-func readInputFile(filepath string) *[]int {
+func readInputFile(filepath string) []int {
 	var result []int
 
 	rawInput, err := ioutil.ReadFile(filepath)
 
 	if err != nil {
-		return nil
+		return result
 	}
 
 	rawString := string(rawInput)
@@ -24,7 +24,7 @@ func readInputFile(filepath string) *[]int {
 		result = append(result, n)
 	}
 
-	return &result
+	return result
 }
 
 func reportRepair(input []int) int {

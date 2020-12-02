@@ -8,7 +8,7 @@ import (
 
 func TestSuccessConvertTXTFile(t *testing.T) {
 	input := readInputFile("input.txt")
-	assert.Equal(t, 200, len(*input), "Input length should be equal to 200")
+	assert.Equal(t, 200, len(input), "Input length should be equal to 200")
 }
 
 func TestSuccessConvertTXTFileReturningNil(t *testing.T) {
@@ -31,7 +31,7 @@ func TestNotFound(t *testing.T) {
 
 func TestSuccessGetResult3Sum(t *testing.T) {
 	input := readInputFile("input.txt")
-	reportResult := reportRepair3Sum(*input)
+	reportResult := reportRepair3Sum(input)
 
 	assert.Equal(t, 262738554, reportResult, "Report Repair should be equal to 262738554")
 }
