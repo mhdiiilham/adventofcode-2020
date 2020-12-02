@@ -50,3 +50,17 @@ func TestSuccessCounting(t *testing.T) {
 
 	assert.Equal(t, 2, total)
 }
+
+func TestValidateByIndexEmptySlice(t *testing.T) {
+	input := []string{}
+	validPasswd := validateByIndex(input)
+
+	assert.Equal(t, 0, validPasswd)
+}
+
+func TestValidateSuccess(t *testing.T) {
+	input := loadInputFromFile("input.txt")
+	validPasswd := validateByIndex(input)
+
+	assert.Equal(t, 729, validPasswd)
+}

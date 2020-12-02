@@ -10,8 +10,13 @@ import (
 
 func main() {
 	input := loadInputFromFile("input.txt")
-	validPassword := countInput(input)
-	fmt.Println(validPassword)
+	validByPosPassword := validateByIndex(input)
+	validByRange := countInput(input)
+	fmt.Println(fmt.Sprintf(
+		"Valida by range: %v, valid by exactly one position %v",
+		validByRange,
+		validByPosPassword,
+	))
 }
 
 func loadInputFromFile(filePath string) []string {
@@ -36,6 +41,25 @@ func countInput(input []string) int {
 			result++
 		}
 
+	}
+
+	return result
+}
+
+func validateByIndex(input []string) int {
+	var result int
+
+	for _, passwd := range input {
+		firstPos, secondPos := extractMinMax(passwd)
+		target := extractTarget(passwd)
+		passwdToCheck := extractPasswd(passwd)
+		passwdToArray := strings.Split(passwdToCheck, "")
+
+		if passwdToArray[firstPos-1] == target && passwdToArray[secondPos-1] != target {
+			result++
+		} else if passwdToArray[firstPos-1] != target && passwdToArray[secondPos-1] == target {
+			result++
+		}
 	}
 
 	return result
