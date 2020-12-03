@@ -8,16 +8,16 @@ import (
 
 func main() {
 	input := loadInput("input.txt")
-	result := countThree(input)
-	fmt.Println(result)
+	second := countTree(input, 3, 1)
+	fmt.Println("second:", second)
 }
 
-func countThree(input [][]string) int {
-	var result int
+func countTree(input [][]string, right, down int) int {
+	result := 0
 
-	posX := 3
-	posY := 1
-	maxRow := len(input[posY]) - 1
+	posX := right
+	posY := down
+	maxRow := len(input[0]) - 1
 
 	for posY < len(input) {
 		if posX > maxRow {
@@ -31,8 +31,8 @@ func countThree(input [][]string) int {
 		} else {
 			input[posY][posX] = "O"
 		}
-		posX = posX + 3
-		posY++
+		posX = posX + right
+		posY = posY + down
 
 	}
 
