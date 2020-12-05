@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -44,4 +46,90 @@ func countValidPassport(input []string) int {
 	}
 
 	return validPassport
+}
+
+func yearValidate(byr string, digit, min, max int) bool {
+	if len(byr) != digit {
+		return false
+	}
+
+	byrToInt, err := strconv.Atoi(byr)
+	if err != nil {
+		return false
+	}
+
+	if byrToInt < min || byrToInt > max {
+		return false
+	}
+
+	return true
+}
+
+func heightValidate(height string) bool {
+	isCM, _ := regexp.MatchString(`cm`, height)
+	isIN, _ := regexp.MatchString(`in`, height)
+
+	if isCM {
+		removeCM := strings.ReplaceAll(height, "cm", "")
+		value, err := strconv.Atoi(removeCM)
+		if err != nil {
+			return false
+		}
+		if value < 150 || value > 193 {
+			return false
+		}
+	}
+
+	if isIN {
+		removeIN := strings.ReplaceAll(height, "in", "")
+		value, err := strconv.Atoi(removeIN)
+		if err != nil {
+			return false
+		}
+		if value < 59 || value > 76 {
+			return false
+		}
+	}
+
+	return true
+}
+
+func validateColor(clr string) bool {
+	ok, err := regexp.MatchString(`^#(?:[0-9a-fA-F]{3}){1,2}$`, clr)
+	if err != nil {
+		return false
+	}
+
+	return ok
+}
+
+func validateEcl(ecl string) bool {
+	switch ecl {
+	case "amb":
+		return true
+	case "blu":
+		return true
+	case "brn":
+		return true
+	case "gry":
+		return true
+	case "grn":
+		return true
+	case "hzl":
+		return true
+	case "oth":
+		return true
+	default:
+		return false
+	}
+}
+
+func validatePassportID(pid string) bool {
+	pidArray := strings.Split(pid, "")
+
+	if len(pidArray) != 9 || pidArray[0] != "0" {
+		return false
+	}
+
+	return true
 }
