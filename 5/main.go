@@ -3,34 +3,47 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"sort"
 	"strings"
 )
 
 type rowFunc func(x [2]int) [2]int
 
 func main() {
-	boarding := "BFFFBBFRRR"
-	highestSeatID := getHighestSeatID("input.txt")
-	fmt.Println("SeatID->", getSeatID(boarding))
-	fmt.Println("Hihest Seat ID->", highestSeatID)
+	highestSeatID, listSeatID := getHighestSeatID("input.txt")
+	fmt.Println("Highest Seat ID->", highestSeatID)
+	fmt.Println("My Seat ID->", getMySeatID(listSeatID))
 }
 
-func getHighestSeatID(file string) int {
+func getMySeatID(seatIDs []int) int {
+	sort.Ints(seatIDs)
+
+	for i := 1; i < len(seatIDs)-1; i++ {
+		if seatIDs[i+1] != seatIDs[i]+1 {
+			return seatIDs[i] + 1
+		}
+	}
+	return 0
+}
+
+func getHighestSeatID(file string) (int, []int) {
 	seatID := 0
+	listID := []int{}
 	raws, err := ioutil.ReadFile(file)
 	if err != nil {
-		return seatID
+		return seatID, listID
 	}
 
 	splitByLine := strings.Split(string(raws), "\n")
 	for _, boarding := range splitByLine {
 		currentSeatID := getSeatID(boarding)
+		listID = append(listID, currentSeatID)
 		if currentSeatID > seatID {
 			seatID = currentSeatID
 		}
 	}
 
-	return seatID
+	return seatID, listID
 }
 
 func getSeatID(boarding string) int {
