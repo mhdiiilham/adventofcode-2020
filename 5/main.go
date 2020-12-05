@@ -24,9 +24,9 @@ func getHighestSeatID(file string) int {
 
 	splitByLine := strings.Split(string(raws), "\n")
 	for _, boarding := range splitByLine {
-		currentSeadID := getSeatID(boarding)
-		if currentSeadID > seatID {
-			seatID = currentSeadID
+		currentSeatID := getSeatID(boarding)
+		if currentSeatID > seatID {
+			seatID = currentSeatID
 		}
 	}
 
