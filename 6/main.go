@@ -8,10 +8,10 @@ import (
 
 func main() {
 	input := readFromFile("input.txt")
-	yesAnswer := countYesAnswer(input[1])
 	sumYes := countYes(input)
-	fmt.Println("Yes ->", yesAnswer)
-	fmt.Println("Sum YES ->", sumYes)
+	allYes := everyoneYes(input)
+	fmt.Println("Part One ->", sumYes)
+	fmt.Println("Part Two ->", allYes)
 
 }
 
@@ -38,12 +38,42 @@ func countYesAnswer(answers string) int {
 	return len(answered)
 }
 
+func countAllYes(groupAnswer string) int {
+	allYes := 0
+	splitByPerson := strings.Split(groupAnswer, "\n")
+	totalPerson := len(splitByPerson)
+	answerRecord := map[string]int{}
+
+	for _, byPerson := range splitByPerson {
+		byPersonSplit := strings.Split(byPerson, "")
+		for _, byPersonAnswer := range byPersonSplit {
+			if answerRecord[byPersonAnswer] == 0 {
+				answerRecord[byPersonAnswer] = 1
+			} else {
+				answerRecord[byPersonAnswer]++
+			}
+		}
+	}
+	for _, record := range answerRecord {
+		if record == totalPerson {
+			allYes++
+		}
+	}
+	return allYes
+}
+
+func everyoneYes(listInput []string) int {
+	counted := 0
+	for _, input := range listInput {
+		counted += countAllYes(input)
+	}
+	return counted
+}
+
 func countYes(listInput []string) int {
 	counted := 0
-
 	for _, input := range listInput {
 		counted += countYesAnswer(input)
 	}
-
 	return counted
 }
