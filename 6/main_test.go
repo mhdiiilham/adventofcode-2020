@@ -29,3 +29,15 @@ func TestCountAllAnswer(t *testing.T) {
 	yes := countYes(input)
 	assert.Equal(t, 11, yes, "Sum of yes from the input groups should be equal to 11")
 }
+
+func TestCountEachGroupAllYes(t *testing.T) {
+	input := readFromFile("test.txt")
+	allYes := countAllYes(input[2])
+	assert.Equal(t, 1, allYes, "The sum of group 3 that answer yes to questions is 1")
+}
+
+func TestCountEveryoneYES(t *testing.T) {
+	input := readFromFile("test.txt")
+	everyoneYes := everyoneYes(input)
+	assert.Equal(t, 6, everyoneYes, "Sum of answers that everyone anaswer 'yes' should be equal to 6")
+}
