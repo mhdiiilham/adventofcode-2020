@@ -10,7 +10,7 @@ import (
 func main() {
 	input := readFromFile("test.txt")
 	acc := accumulatorValue(input)
-	fmt.Println("Part one->", acc)
+	fmt.Println("Part one asnwer->", acc)
 	fmt.Println(isContain([]int{}, 0))
 }
 
@@ -31,6 +31,8 @@ func accumulatorValue(bootCodes []string) int {
 			return accumulator
 		}
 
+		visitedIndex = append(visitedIndex, currentIndex)
+
 		if operation == "acc" {
 			switch argument {
 			case "-":
@@ -40,7 +42,6 @@ func accumulatorValue(bootCodes []string) int {
 				accumulator += argumentValueToInt
 				break
 			}
-			visitedIndex = append(visitedIndex, currentIndex)
 			currentIndex++
 		} else if operation == "jmp" {
 			switch argument {
@@ -52,7 +53,6 @@ func accumulatorValue(bootCodes []string) int {
 				break
 			}
 		} else {
-			visitedIndex = append(visitedIndex, currentIndex)
 			currentIndex++
 		}
 
