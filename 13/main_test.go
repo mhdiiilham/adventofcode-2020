@@ -24,3 +24,10 @@ func TestMultipliedDepartAndWait(t *testing.T) {
 	multipliedDepartAndWaitTime := multiplyingTime(busID, minDepartTime)
 	assert.Equal(t, 295, multipliedDepartAndWaitTime, "The multiplied of minutes waiting and bus id should be equal to 295")
 }
+
+func TestGetBusClosestDepartTime(t *testing.T) {
+	busID := 7
+	minDepartTime := 939
+	time := closerToMinDepart(busID, minDepartTime)
+	assert.Equal(t, 945, time, "The closest time that bus 7 depart is 945")
+}
